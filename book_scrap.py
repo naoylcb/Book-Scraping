@@ -6,8 +6,10 @@ import csv
 from bs4 import BeautifulSoup
 import sys
 
-# Fonction qui récupère les informations d'une page produit
+
 def get_info_product(p_url):
+    """Fonction qui récupère les informations d'une page produit"""
+
     r = requests.get(p_url)
     r.encoding = "utf-8"
     if r.ok:
@@ -27,7 +29,7 @@ def get_info_product(p_url):
         p_upc = p_infos[0].get_text()
         p_exc_tax = p_infos[2].get_text().replace("£", "")
         p_inc_tax = p_infos[3].get_text().replace("£", "")
-        p_availability = p_infos[5].get_text().replace("In stock (", "").replace(" available)", "")
+        p_availability = "".join(list(filter(str.isdigit, p_infos[5].get_text())))
 
         with open("products.csv", "a", newline="", encoding="utf-8") as f:
             writer = csv.writer(f, delimiter=";")
@@ -64,7 +66,6 @@ if r.ok:
         if sys.argv[1] == k:
             category_url = v
 
-    category_url = category_url.replace("index", "page-1")
     r = requests.get(category_url)
     r.encoding = "utf-8"
     # Si la catégorie a plusieurs pages
@@ -78,15 +79,5 @@ if r.ok:
                 get_info_product("http://books.toscrape.com/catalogue/" +
                                      l.select_one(".image_container a").get("href").replace("../../../", ""))
             i += 1
-            r = requests.get(category_url.replace(f"page-1", f"page-{i}"))
+            r = requests.get(category_url.replace(f"index", f"page-{i}"))
             r.encoding = "utf-8"
-    # Si la catégorie a une seule page
-    elif r.status_code == 404:
-        r = requests.get(category_url.replace("page-1", "index"))
-        r.encoding = "utf-8"
-        if r.ok:
-            category_page = BeautifulSoup(r.text, "lxml")
-            p_links = category_page.select(".col-xs-6")
-            for l in p_links:
-                get_info_product("http://books.toscrape.com/catalogue/" +
-                                 l.select_one(".image_container a").get("href").replace("../../../", ""))
