@@ -11,6 +11,7 @@ import product
 
 def get_category_products(c_name, c_url):
     """Fonction récupérant les informations des produits d'une catégorie dans un fichier csv."""
+    # Récupération de la date.
     date = str(datetime.date.today())
 
     # Écriture des en-têtes du fichier csv de la catégorie.
@@ -21,6 +22,7 @@ def get_category_products(c_name, c_url):
                          "review_rating",
                          "image_url"])
 
+    # Requête à l'url de la catégorie.
     r = requests.get(c_url)
     r.encoding = "utf-8"
     if r.ok:
@@ -28,8 +30,8 @@ def get_category_products(c_name, c_url):
         # Parcours des pages de la catégorie en ajoutant les informations de chaque produit dans le fichier csv.
         while r.status_code != 404:
             category_page = BeautifulSoup(r.text, "lxml")
-            p_links = category_page.select(".col-xs-6")
-            for p in p_links:
+            products_links = category_page.select(".col-xs-6")
+            for p in products_links:
                 product.get_product_infos(date, "http://books.toscrape.com/catalogue/" +
                                   p.select_one(".image_container a").get("href").replace("../../../", ""))
             i += 1
@@ -43,6 +45,7 @@ def print_category_products(c_name):
     """Fonction listant les produits d'une catégorie."""
     c_url = ""
 
+    # Requête à l'url de la page d'accueil du site web.
     r = requests.get("http://books.toscrape.com/index.html")
     r.encoding = "utf-8"
     if r.ok:
@@ -54,7 +57,9 @@ def print_category_products(c_name):
                 c_url = "http://books.toscrape.com/" + category.get("href")
                 break
 
+    # Si la catégorie existe.
     if c_url != "":
+        # Requête à l'url de la catégorie.
         r = requests.get(c_url)
         r.encoding = "utf-8"
         if r.ok:
@@ -62,12 +67,13 @@ def print_category_products(c_name):
             # Parcours des pages de la catégorie en listant les produits.
             while r.status_code != 404:
                 category_page = BeautifulSoup(r.text, "lxml")
-                p_links = category_page.select(".col-xs-6")
-                for p in p_links:
+                products_links = category_page.select(".col-xs-6")
+                for p in products_links:
                     print(p.select_one(".image_container img").get("alt"))
                 i += 1
                 r = requests.get(c_url.replace(f"index", f"page-{i}"))
                 r.encoding = "utf-8"
+    # Si la catégorie n'existe pas.
     else:
         print("Cette catégorie n'existe pas.")
 

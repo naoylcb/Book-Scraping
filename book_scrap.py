@@ -16,18 +16,22 @@ def main(number):
     if not os.path.exists("img"):
         os.mkdir("img")
 
+    # Requête à l'url de la page d'accueil du site web.
     r = requests.get("http://books.toscrape.com/index.html")
     r.encoding = "utf-8"
     if r.ok:
         index_page = BeautifulSoup(r.text, "lxml")
-        # Récupération du nom et de l'url de chaque catégorie.
         category_links = index_page.select_one(".nav-list ul").select("li a")
+        # Si aucune limite n'est précisée.
         if number is None:
+            # Récupération du nom et de l'url de chaque catégorie.
             for category in category_links:
                 category_name = category.get_text().strip()
                 category_url = "http://books.toscrape.com/" + category.get("href")
                 get_category_products(category_name, category_url)
+        # Si une limite est précisée.
         else:
+            # Vérification que le nombre entré ne contient que des chiffres.
             if number.isdigit():
                 number = int(number)
                 i = 0

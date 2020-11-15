@@ -10,6 +10,7 @@ img_number = 0
 
 def get_product_infos(date, p_url):
     """Fonction qui télécharge l'image du produit et qui récupère les informations du produit dans un fichier csv."""
+    # Requête à l'url de la page produit.
     r = requests.get(p_url)
     r.encoding = "utf-8"
     if r.ok:
@@ -27,6 +28,7 @@ def get_product_infos(date, p_url):
         text_number = p_stars_attrs["class"][1]
         p_review_rating = number_rating[text_number]
 
+        # Texte par défaut si le produit n'a pas de description.
         try:
             p_description = page.select_one("#product_description + p").get_text()
         except AttributeError:
@@ -57,6 +59,7 @@ def print_product_infos(p_name):
     """Fonction affichant les informations d'un produit."""
     p_url = ""
 
+    # Requête à l'url de la page d'accueil du site web.
     url = "http://books.toscrape.com/catalogue/page-1.html"
     r = requests.get(url)
     r.encoding = "utf-8"
@@ -73,10 +76,13 @@ def print_product_infos(p_name):
             r = requests.get(url.replace(f"page-1", f"page-{i}"))
             r.encoding = "utf-8"
 
+    # Si le produit existe.
     if p_url != "":
+        # Requête à l'url de la page produit.
         r = requests.get(p_url)
         r.encoding = "utf-8"
         if r.ok:
+            # Dictionnaire qui contiendra les informations du produit.
             product_infos = {}
             page = BeautifulSoup(r.text, "lxml")
 
@@ -91,6 +97,7 @@ def print_product_infos(p_name):
             text_number = p_stars_attrs["class"][1]
             product_infos["NOTE"] = number_rating[text_number]
 
+            # Texte par défaut si le produit n'a pas de description.
             try:
                 product_infos["DESCRIPTION"] = page.select_one("#product_description + p").get_text()
             except AttributeError:
@@ -105,6 +112,7 @@ def print_product_infos(p_name):
             # Affichage des informations du produit.
             for name, info in product_infos.items():
                 print(name, ":", info)
+    # Si le produit n'existe pas.
     else:
         print("Ce produit n'existe pas.")
 

@@ -11,21 +11,23 @@ Commencez par télécharger le repository en cliquant sur le menu "Code", puis "
 
 Extrayez le dossier. Dans celui-ci, créez et activez un environnement virtuel. Pour cela :
 - Ouvrez votre terminal et placez-vous dans le dossier extrait,
-- Exécutez la commande : "python -m venv env",
-- Exécutez ensuite la commande : "source env/bin/activate" (Sous Windows, la commande sera env/Scripts/activate.bat).
+- Exécutez la commande : `python -m venv env`,
+- Exécutez ensuite la commande : `source env/bin/activate` (Sous Windows, l'activation se fera avec le fichier env/Scripts/activate.bat).
 
-Installez les dépendances en exécutant la commande : "pip install -r requirements.txt"
+Installez les dépendances en exécutant la commande : `pip install -r requirements.txt`
 
-Tout est prêt ! Lancez l'application avec la commande : "python book_scrap.py"
+Tout est prêt ! Lancez l'application avec la commande : `python book_scrap.py`
 
 Dans le dossier "csv", vous trouverez les informations des produits selon leur catégorie.
+
 Dans le dossier "img", vous trouverez les images de tous les produits.
 
-## Test
+Les fichiers csv doivent être ouverts en utf-8 dans le logiciel utilisé (exemple : Excel).
 
-Vous avez 3 possibilités pour tester l'application :
-- Afficher les informations d'un produit : "python product.py (nom du produit)",
-- Afficher la liste des produits d'une catégorie : "python category.py (nom de la catégorie)",
-- Récupérer un nombre limité de catégories : "python book_scrap.py (nombre de catégories)".
+## Utilisations alternatives
+
+- Afficher les informations d'un produit : `python product.py (nom du produit)`,
+- Afficher la liste des produits d'une catégorie : `python category.py (nom de la catégorie)`,
+- Récupérer un nombre limité de catégories : `python book_scrap.py (nombre de catégories)`.
     
-Si le nom d'un produit ou d'une catégorie comporte des espaces, entourez-le avec des guillemets.
+Le nom du produit ou de la catégorie doit être écrit comme sur le site. S'il y a des espaces, entourez le nom avec des guillemets.
