@@ -1,33 +1,36 @@
+*(Project realized during my training)*  
+*(The goal being to learn scraping)*
+
 # Scraping books.toscrape.com
 
-Application permettant d'extraire les informations de tous les produits du site books.toscrape.com.
+Application to extract information from all products on the books.toscrape.com site.
 
-## Installation et Exécution
+## Installation and execution
 
-Si vous avez déjà installé Python, assurez-vous que sa version est à jour.
-Sinon, téléchargez et installez Python. [Site Web](https://www.python.org/downloads/)
+If you already have Python installed, make sure its version is up to date.
+If not, download and install Python. [Website](https://www.python.org/downloads/)
 
-Commencez par télécharger le repository en cliquant sur le menu "Code", puis "Download ZIP".
+Start by downloading the repository by clicking on the "Code" menu, then "Download ZIP".
 
-Extrayez le dossier. Dans celui-ci, créez et activez un environnement virtuel. Pour cela :
-- Ouvrez votre terminal et placez-vous dans le dossier extrait,
-- Exécutez la commande : `python -m venv env`,
-- Exécutez ensuite la commande : `source env/bin/activate` (Sous Windows, l'activation se fera avec le fichier env/Scripts/activate.bat).
+Extract the folder. In it, create and activate a virtual environment. To do this:
+- Open your terminal and place yourself in the extracted folder,
+- Run the command: `python -m venv env`,
+- Then run the command: `source env/bin/activate` (On Windows, activation will be done with the file env/Scripts/activate.bat).
 
-Installez les dépendances en exécutant la commande : `pip install -r requirements.txt`
+Install the dependencies by running the command: `pip install -r requirements.txt`.
 
-Tout est prêt ! Lancez l'application avec la commande : `python book_scrap.py`
+Everything is ready! Run the application with the command: `python book_scrap.py`
 
-Dans le dossier "csv", vous trouverez les informations des produits selon leur catégorie.
+In the "csv" folder, you will find the product information according to their category.
 
-Dans le dossier "img", vous trouverez les images de tous les produits.
+In the "img" folder, you will find the images of all products.
 
-Les fichiers csv doivent être ouverts en utf-8 dans le logiciel utilisé (exemple : Excel).
+The csv files must be opened in utf-8 in the software used (example: Excel).
 
-## Utilisations alternatives
+## Alternative uses
 
-- Afficher les informations d'un produit : `python product.py (nom du produit)`,
-- Afficher la liste des produits d'une catégorie : `python category.py (nom de la catégorie)`,
-- Récupérer un nombre limité de catégories : `python book_scrap.py (nombre de catégories)`.
+- Display the information of a product: `python product.py (product name)`,
+- Display the list of products in a category: `python category.py (category name)`,
+- Retrieve a limited number of categories: `python book_scrap.py (number of categories)`.
     
-Le nom du produit ou de la catégorie doit être écrit comme sur le site. S'il y a des espaces, entourez le nom avec des guillemets.
+The name of the product or category must be written as it is on the site. If there are spaces, surround the name with quotes.
