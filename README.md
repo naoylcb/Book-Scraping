@@ -1,6 +1,3 @@
-*(Project realized during my training)*  
-*(The goal being to learn scraping)*
-
 # Scraping books.toscrape.com
 
 Application to extract information from all products on the books.toscrape.com site.
